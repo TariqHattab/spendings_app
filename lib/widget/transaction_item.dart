@@ -22,6 +22,29 @@ class TransactionItem extends StatelessWidget {
         alignment: Alignment.centerRight,
         child: Icon(Icons.delete, size: 40, color: Colors.white),
       ),
+      confirmDismiss: (_) {
+        return showDialog(
+            context: context,
+            builder: (ctx) {
+              return AlertDialog(
+                title: Text('Are you sure?'),
+                actions: [
+                  ElevatedButton(
+                      onPressed: () {
+                        Navigator.of(context).pop(true);
+                      },
+                      child: Text('yes')),
+                  TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pop(false);
+                      },
+                      child: Text('no')),
+                ],
+                content: Text('do your want to delete this transaction'),
+              );
+            });
+      },
+      direction: DismissDirection.endToStart,
       onDismissed: (_) {
         Provider.of<Transactions>(context, listen: false)
             .removeTransaction(transaction);

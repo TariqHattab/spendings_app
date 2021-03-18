@@ -45,6 +45,7 @@ class MyHomePage extends StatelessWidget {
         ],
       ),
       body: Body(),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerTop,
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           showBottomSheet(context, inputFields);

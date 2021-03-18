@@ -12,6 +12,9 @@ class Transactions with ChangeNotifier {
   }
 
   double get totalAmount {
+    if (_transactions.isEmpty) {
+      return 0;
+    }
     double total = 0;
     _transactions.fold(
         total, (previousValue, element) => total += element.amount);
@@ -19,13 +22,16 @@ class Transactions with ChangeNotifier {
   }
 
   List<double> get amountForEachDay {
+    if (_transactions.isEmpty) {
+      return [0, 0, 0, 0, 0, 0, 0];
+    }
     List<double> list = [];
     DateTime now = DateTime.now();
     for (var i = 6; i >= 0; i--) {
       double total = 0;
       _transactions
-          .where((tx) =>
-              tx.date.day.compareTo(now.subtract(Duration(days: i)).day) == 0)
+          .where((tx) => //check if
+              tx.date.day == now.subtract(Duration(days: i)).day)
           .fold(total, (prev, tx) => total += tx.amount);
       list.add(total);
     }
